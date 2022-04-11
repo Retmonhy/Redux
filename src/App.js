@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {incFunc, addTodo} from './redux/reducers/tasks'
 function App() {
+
+  const title = useSelector(store => store.tasks)
+  const dispatch = useDispatch()
+
+  const [text, setText] = useState('')
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <button onClick={() => {dispatch(addTodo(text)); setText(''); console.log(title)}}>Add</button>
     </div>
   );
 }
